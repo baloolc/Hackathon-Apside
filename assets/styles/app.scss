@@ -1,7 +1,13 @@
 @import "variable.scss";
 @import "~bootstrap/scss/bootstrap";
 @import "navbar.scss";
+@import "footer.scss";
+
 
 body {
     background-color:$light;
+}
+
+h1, h2, h3{
+    font-family: $title-font;
 }
