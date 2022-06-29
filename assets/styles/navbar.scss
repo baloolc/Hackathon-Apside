@@ -1,0 +1,36 @@
+.navbar-nav .nav-link {
+    color: $navbar-dark-color;
+    &::after {
+        content   : "";
+        width     : 0%;
+        height    : 3px;
+        display   : block;
+        transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+        bottom    : 0%;
+    }
+    &:hover {
+        color: $primary;
+        &::after {
+            width           : 100%;
+            height          : 3px;
+            background-color: $third;
+        }
+    }
+    &.active {
+        color: $primary;
+        &::after {
+            width           : 100%;
+            height          : 3px;
+            background-color: $third;
+        }
+    }
+}
+
+.nav-link{
+    font-family: $text-font;
+}
+
+.img-nav {
+    width: 10rem;
+    height:5rem;
+}
