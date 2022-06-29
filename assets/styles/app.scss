@@ -1,5 +1,7 @@
+@import "variable.scss";
 @import "~bootstrap/scss/bootstrap";
+@import "navbar.scss";
 
 body {
-    background-color: lightgray;
+    background-color:$light;
 }
