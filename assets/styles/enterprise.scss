@@ -12,6 +12,10 @@
     box-shadow: 12px 12px 2px 1px $logo;
 }
 
+.img-fluid:hover {
+    opacity: 90%;
+}
+
 .title-card {
     color:$logo;
 }
