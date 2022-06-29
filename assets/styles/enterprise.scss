@@ -1,0 +1,17 @@
+@import 'variable.scss';
+
+
+.title-enterprise {
+    box-shadow: 5px 5px 2px 1px $primary;
+    background-color: $logo;
+}
+
+.card {
+    border: 2px;
+    border-color:$logo;
+    box-shadow: 12px 12px 2px 1px $logo;
+}
+
+.title-card {
+    color:$logo;
+}
