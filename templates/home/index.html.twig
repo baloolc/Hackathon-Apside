@@ -3,6 +3,20 @@
 {% block title %}Hackathon
 {% endblock %}
 
+{% block stylesheets %}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+{% block navbar %}
+	{% include "component/_navbar.html.twig" %}
+{% endblock %}
+
 {% block body %}
-	<h1>Hackathon</h1>
+	<div class="container-fluid d-flex justify-content-center align-items-center header">
+		<h1 class="title-header border border-dark border-3 p-2 rounded">Bienvenue chez Apside collaboration</h1>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	{% include "component/_footer.html.twig" %}
 {% endblock %}
