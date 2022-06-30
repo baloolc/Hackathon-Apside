@@ -37,13 +37,13 @@ class Project
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projects')]
     private Collection $user;
 
-    #[ORM\ManyToMany(targetEntity: Enterprise::class, inversedBy: 'projects')]
-    private Collection $enterprise;
+    #[ORM\ManyToOne(targetEntity: Enterprise::class, inversedBy: 'projects')]
+    private $enterprise;
+
 
     public function __construct()
     {
         $this->user = new ArrayCollection();
-        $this->enterprise = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,26 +111,14 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection<int, Enterprise>
-     */
-    public function getEnterprise(): Collection
+    public function getEnterprise(): ?Enterprise
     {
         return $this->enterprise;
     }
 
-    public function addEnterprise(Enterprise $enterprise): self
+    public function setEnterprise(?Enterprise $enterprise): self
     {
-        if (!$this->enterprise->contains($enterprise)) {
-            $this->enterprise[] = $enterprise;
-        }
-
-        return $this;
-    }
-
-    public function removeEnterprise(Enterprise $enterprise): self
-    {
-        $this->enterprise->removeElement($enterprise);
+        $this->enterprise = $enterprise;
 
         return $this;
     }
