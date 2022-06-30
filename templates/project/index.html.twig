@@ -1,39 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Project index{% endblock %}
+{% block title %}Les projets {{ enterprise.name }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('enterprise') }}
+{% endblock %}
 
 {% block body %}
-    <h1>Project index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Society</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for project in enterprise.projects %}
-            <tr>
-                <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
-                <td>{{ project.society }}</td>
-                <td>{{ project.description }}</td>
-                <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_project_new') }}">Create new</a>
+<div class="d-flex justify-content-center">
+	<h1 class="d-flex justify-content-center my-5 w-50 text-light title-enterprise p-3">Projets de {{ enterprise.name }}</h1>
+    </div>
+	<div class="row d-flex justify-content-around mb-5">
+		{% for project in enterprise.projects %}
+			<div class="card col-3 m-5 bg-primary p-3 rounded d-flex flex-column justify-content-evenly">
+				<h2 class="d-flex justify-content-center my-3 title-card">{{ project.name }}</h2>
+                <h3 class="d-flex justify-content-center society my-3">{{ project.society }}</h3>
+                <div>
+                <h4 class="">Description</h4>
+                <p class="mb-3 fs-5">{{ project.description }}</p>
+                </div>
+            </div>
+		{% endfor %}
+	</div>
 {% endblock %}
