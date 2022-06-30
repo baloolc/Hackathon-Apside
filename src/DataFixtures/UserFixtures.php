@@ -34,6 +34,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setFirstname('Sebastien');
         $admin->setPoste('Administrateur');
         $admin->setEnterprise($this->getReference('enterprise_0'));
+        $admin->getProjects($this->getReference('project_0'));
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
             'admin'
@@ -63,6 +64,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             );
             $user->setPassword($hashedPassword);
             $user->setEnterprise($this->getReference('enterprise_' . $i));
+            $user->addProject($this->getReference('project_' . $i));
             $manager->persist($user);
         }
 
@@ -72,6 +74,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            ProjectFixtures::class,
             EnterpriseFixtures::class,
         ];
     }

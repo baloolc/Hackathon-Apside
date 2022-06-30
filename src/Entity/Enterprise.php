@@ -45,10 +45,14 @@ class Enterprise
     #[ORM\OneToMany(mappedBy: 'enterprise', targetEntity: User::class)]
     private Collection $users;
 
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'enterprise')]
+    private Collection $projects;
+
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
         $this->users = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,6 +125,33 @@ class Enterprise
             if ($user->getEnterprise() === $this) {
                 $user->setEnterprise(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->addEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            $project->removeEnterprise($this);
         }
 
         return $this;
