@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EnterpriseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -10,8 +12,9 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-#[Vich\Uploadable]
+
 #[ORM\Entity(repositoryClass: EnterpriseRepository::class)]
+#[Vich\Uploadable]
 class Enterprise
 {
     #[ORM\Id]
@@ -39,9 +42,13 @@ class Enterprise
     #[ORM\Column(type: 'datetime')]
     private ?DateTimeInterface $updatedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'enterprise', targetEntity: User::class)]
+    private Collection $users;
+
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,5 +94,35 @@ class Enterprise
     public function getPhotoFile(): ?File
     {
         return $this->photoFile;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getEnterprise() === $this) {
+                $user->setEnterprise(null);
+            }
+        }
+
+        return $this;
     }
 }
