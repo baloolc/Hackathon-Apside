@@ -42,6 +42,21 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
         $this->addReference($admin->getEmail(), $admin);
+        
+        $user = new User();
+        $user->setEmail('user@apside.com');
+        $user->setRoles(['ROLE_USER']);
+        $user->setName('Dupont');
+        $user->setFirstname('Sebastien');
+        $user->setPoste('utilisateur');
+        $user->setEnterprise($this->getReference('enterprise_0'));
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'user'
+        );
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+        $this->addReference($user->getEmail(), $user);
 
         $faker = Factory::create();
         for ($i = 0; $i < self::USER_NUMBER; $i++) {
@@ -52,7 +67,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstname($faker->firstname());
             $user->setPoste($faker->sentence());
             $user->setTech($faker->sentence());
-            $avatar = 'avatar' .$i . 'jpg';
+            $avatar = 'avatar' . $i . 'jpg';
             copy('src/DataFixtures/avatar.jpg', 'public/uploads/client/' . $avatar);
             $user->setAvatar($avatar);
             $hashedPassword = $this->passwordHasher->hashPassword(
