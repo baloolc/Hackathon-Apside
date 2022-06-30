@@ -16,6 +16,7 @@ class EnterpriseController extends AbstractController
     #[Route('/', name: 'enterprise_index', methods: ['GET'])]
     public function index(EnterpriseRepository $enterpriseRepository): Response
     {
+        
         return $this->render('enterprise/index.html.twig', [
             'enterprises' => $enterpriseRepository->findAll(),
         ]);

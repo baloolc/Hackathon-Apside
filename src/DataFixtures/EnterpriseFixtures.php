@@ -7,7 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 
-class EnterpriseFixtures extends Fixture
+class EnterpriseFixtures extends Fixture 
 {
     public const AGENCIES = [
         ['name' => 'Apside Strasbourg'],
@@ -27,7 +27,7 @@ class EnterpriseFixtures extends Fixture
         $filesystem->remove('public/uploads/enterprise');
         $filesystem->mkdir('public/uploads/enterprise');
 
-        foreach (self::AGENCIES as $enterpriseName) {
+        foreach (self::AGENCIES as $key => $enterpriseName) {
             $enterprise = new Enterprise();
             $enterprise->setName($enterpriseName['name']);
             for ($i = 0; $i < self::AGENCIES_NUMBER; $i++) {
@@ -35,8 +35,11 @@ class EnterpriseFixtures extends Fixture
             copy('src/DataFixtures/apside.jpg', 'public/uploads/enterprise/' . $photo);
                 $enterprise->setPhoto($photo);
             }
+            $this->addReference('enterprise_' . $key, $enterprise);
             $manager->persist($enterprise);
         }
         $manager->flush();
     }
+
+  
 }
