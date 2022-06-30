@@ -45,8 +45,8 @@ class Enterprise
     #[ORM\OneToMany(mappedBy: 'enterprise', targetEntity: User::class)]
     private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'enterprise')]
-    private Collection $projects;
+    #[ORM\OneToMany(mappedBy: 'enterprise', targetEntity: Project::class)]
+    private $projects;
 
     public function __construct()
     {
@@ -142,7 +142,7 @@ class Enterprise
     {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
-            $project->addEnterprise($this);
+            $project->setEnterprise($this);
         }
 
         return $this;
@@ -151,7 +151,10 @@ class Enterprise
     public function removeProject(Project $project): self
     {
         if ($this->projects->removeElement($project)) {
-            $project->removeEnterprise($this);
+            // set the owning side to null (unless already changed)
+            if ($project->getEnterprise() === $this) {
+                $project->setEnterprise(null);
+            }
         }
 
         return $this;

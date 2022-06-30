@@ -4,11 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Enterprise;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 
-class EnterpriseFixtures extends Fixture implements DependentFixtureInterface
+class EnterpriseFixtures extends Fixture
 
 {
     public const AGENCIES = [
@@ -38,17 +37,9 @@ class EnterpriseFixtures extends Fixture implements DependentFixtureInterface
                 $enterprise->setPhoto($photo);
             }
             $this->addReference('enterprise_' . $key, $enterprise);
-            $enterprise->addProject($this->getReference('project_' . $key));
             $manager->persist($enterprise);
         }
         $manager->flush();
         
-    }
-
-    public function getDependencies()
-    {
-        return [
-            ProjectFixtures::class,
-        ];
     }
 }
