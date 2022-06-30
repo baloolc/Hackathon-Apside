@@ -51,15 +51,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstname($faker->firstname());
             $user->setPoste($faker->sentence());
             $user->setTech($faker->sentence());
-            $avatar = 'avatar' .$i . 'jpg';
+            $avatar = 'avatar' . $i . 'jpg';
             copy('src/DataFixtures/avatar.jpg', 'public/uploads/client/' . $avatar);
             $user->setAvatar($avatar);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
-                $faker->sentence(
-                    1,
-                    true
-                )
+                'user'
             );
             $user->setPassword($hashedPassword);
             $user->setEnterprise($this->getReference('enterprise_' . $i));
