@@ -1,3 +1,23 @@
+@import 'variable.scss';
+
 .footer{
-    min-height: 65vh;
+    min-height: 63vh;
+}
+
+.login{
+    border: 2px;
+    border-color:$logo;
+    box-shadow: 12px 12px 2px 1px $logo;
+    background-color: $primary;
+}
+
+.button{
+    background-color: $logo;
+}
+
+.title-login{
+    border: 2px;
+    border-color:$logo;
+    box-shadow: 8px 8px 2px 1px $primary;
+    background-color: $logo;
 }
