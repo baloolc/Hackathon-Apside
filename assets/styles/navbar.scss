@@ -1,5 +1,10 @@
+.navbar {
+    background-color: #F0F0F0;
+}
+
 .navbar-nav .nav-link {
-    color: $navbar-dark-color;
+    color: $logo;
+    font-family: $text-font;
 
     &::after {
         content: "";
@@ -31,11 +36,7 @@
     }
 }
 
-.nav-link {
-    font-family: $text-font;
-}
-
 .img-nav {
-    width: 10rem;
-    height: 5rem;
+    width: 12rem;
+    height:4rem;
 }

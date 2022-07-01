@@ -35,7 +35,8 @@
 					</div>
 				{% endif %}
 			</div>
-
+				<a href="{{ path('enterprise_show', {'id': enterprise.id}) }}" class=""><img src="{{vich_uploader_asset(enterprise, 'photoFile')}}" class=" img-fluid" alt="Photo de l\'agence"></a>
+            </div>
 		{% endfor %}
 	</div>
 {% endblock %}

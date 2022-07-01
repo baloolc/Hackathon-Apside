@@ -1,28 +1,51 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Les projets
-	{{ enterprise.name }}
+{% block title %}Projet
+	{{ project.name }}
 {% endblock %}
 
 {% block stylesheets %}
-	{{ encore_entry_link_tags('enterprise') }}
+	{{ encore_entry_link_tags('project') }}
 {% endblock %}
 
 {% block body %}
-	<div class="d-flex justify-content-center">
-		<h1 class="d-flex justify-content-center my-5 w-50 text-light title-enterprise p-3">Projets de
-			{{ enterprise.name }}</h1>
+	<div class="d-flex justify-content-center my-5">
+		<h1 class="d-flex justify-content-center w-25 text-light title-project p-3">{{ project.name}}</h1>
 	</div>
-	<div class="row d-flex justify-content-around mb-5">
-		{% for project in enterprise.projects %}
-			<a href="#" class="card col-3 m-5 bg-primary p-3 rounded d-flex flex-column justify-content-evenly link">
-				<h2 class="d-flex justify-content-center my-3 title-card">{{ project.name }}</h2>
-				<h3 class="d-flex justify-content-center society my-3">{{ project.society }}</h3>
-				<div>
-					<h4 class="text-dark">Description</h4>
-					<p class="text-dark mb-3 fs-5">{{ project.description }}</p>
+	<div class="ms-3 ">
+		<h2 class="society w-50 p-3 bg-primary">Projet pour la société:
+			{{ project.society }}</h2>
+	</div>
+	<div class="row d-flex justify-content-around mb-3 mt-5">
+	{% dump project.users %}
+		{% for user in project.users %}
+			<div class="card rounded col-3 w-25 me-4 mb-5 shadow border border-2 border-secondary d-flex flex-colunm justify-content-evenly p-3">
+				<div class="">
+					<img src="{{vich_uploader_asset(user, 'avatarFile')}}" alt="avatar" class="img-top">
 				</div>
-			</a>
+				<div class="d-flex flex-column align-items-center">
+				<div class="">
+					<h2 class="firstname">{{ user.firstname }}
+						{{ user.name }}</h2>
+				</div>
+				<div class="">
+					<ul>
+						<li class="fs-5 mb-1 text-secondary">{{ user.email }}</li>
+						<li class="fs-5 mb-1">Poste:
+							{{ user.poste }}</li>
+						<li class="fs-5">Technos:
+							{{ user.tech }}</li>
+					</ul>
+				</div>
+				</div>
+				<div class="d-flex justify-content-center">
+				<a href="" class="btn btn-primary text-dark my-3 p-3 button">Contacter</a>
+				</div>
+			</div>
 		{% endfor %}
+	</div>
+	<div class="container description bg-primary mb-5 rounded">
+	<h2 class="title-description">Description du projet:</h2>
+	<p class="fs-5">{{ project.description}}</p>
 	</div>
 {% endblock %}

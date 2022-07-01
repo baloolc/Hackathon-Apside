@@ -1,11 +1,13 @@
 {% extends 'layout.html.twig' %}
-
+{% block stylesheets %}
+{{ encore_entry_link_tags('login') }}
+{% endblock %}
 {% block body %}
 	<h1 class="d-flex justify-content-center mt-5 mb-4">Se connecter</h1>
 	{% if error %}
 		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 	{% endif %}
-	<form action="" method="post">
+	<form action="" method="post" class="footer">
 		<div class="row">
 			<div class="container shadow bg-light rounded d-flex flex-column align-items-center col-lg-5 col-10 mb-4">
 				<div class="d-flex flex-column justify-content-center align-items-center col-lg-10 mt-5">

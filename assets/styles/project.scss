@@ -1,0 +1,36 @@
+@import 'variable.scss';
+
+.title-project {
+    box-shadow: 5px 5px 2px 1px $primary;
+    background-color: $logo;
+}
+
+.society {
+    border: 2px;
+    border-color:$logo;
+    box-shadow: 12px 12px 2px 1px $logo;
+}
+
+.firstname {
+    color: $logo;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.description{
+    border: 2px;
+    border-color:$logo;
+    box-shadow: 12px 12px 2px 1px $logo;
+}
+
+.title-description{
+    color: $logo;
+}
+
+.button{
+    border: 2px;
+    border-color:$logo;
+    box-shadow: 5px 5px 2px 1px $logo;
+}

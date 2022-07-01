@@ -2,25 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Enterprise;
 use App\Entity\Project;
+use App\Entity\User;
 use App\Form\ProjectType;
-use App\Repository\EnterpriseRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/projet')]
 class ProjectController extends AbstractController
 {
     #[Route('/{id}', name: 'project_index', methods: ['GET'])]
-    public function index(Enterprise $enterprise, EnterpriseRepository $enterpriseRepository): Response
+    public function index(Project $project): Response
     {
         return $this->render('project/index.html.twig', [
-            'enterprise' => $enterprise
+            'project' => $project,
         ]);
     }
 
@@ -43,7 +42,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'project_show', methods: ['GET'])]
     public function show(Project $project): Response
     {
         return $this->render('project/show.html.twig', [
