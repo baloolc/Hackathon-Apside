@@ -16,28 +16,36 @@
 		<h2 class="society w-50 p-3 bg-primary">Projet pour la société:
 			{{ project.society }}</h2>
 	</div>
-	<div class="row d-flex justify-content-around mb-3">
+	<div class="row d-flex justify-content-around mb-3 mt-5">
 	{% dump project.users %}
 		{% for user in project.users %}
-			<div class="card rounded col-3">
+			<div class="card rounded col-3 w-25 me-4 mb-5 shadow border border-2 border-secondary d-flex flex-colunm justify-content-evenly p-3">
 				<div class="">
 					<img src="{{vich_uploader_asset(user, 'avatarFile')}}" alt="avatar" class="img-top">
 				</div>
+				<div class="d-flex flex-column align-items-center">
 				<div class="">
-					<h2 class="">{{ user.firstname }}
+					<h2 class="firstname">{{ user.firstname }}
 						{{ user.name }}</h2>
 				</div>
 				<div class="">
 					<ul>
-						<li class="">{{ user.email }}</li>
-						<li class="">Poste:
+						<li class="fs-5 mb-1 text-secondary">{{ user.email }}</li>
+						<li class="fs-5 mb-1">Poste:
 							{{ user.poste }}</li>
-						<li class="">Technos:
+						<li class="fs-5">Technos:
 							{{ user.tech }}</li>
 					</ul>
 				</div>
-				<a href="" class="btn btn-primary text-dark">Contacter</a>
+				</div>
+				<div class="d-flex justify-content-center">
+				<a href="" class="btn btn-primary text-dark my-3 p-3 button">Contacter</a>
+				</div>
 			</div>
 		{% endfor %}
+	</div>
+	<div class="container description bg-primary mb-5 rounded">
+	<h2 class="title-description">Description du projet:</h2>
+	<p class="fs-5">{{ project.description}}</p>
 	</div>
 {% endblock %}
