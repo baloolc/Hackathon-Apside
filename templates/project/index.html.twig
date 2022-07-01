@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Projet
+	{{ project.name }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('project') }}
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-center my-5">
+		<h1 class="d-flex justify-content-center w-25 text-light title-project p-3">{{ project.name}}</h1>
+	</div>
+	<div class="ms-3 ">
+		<h2 class="society w-50 p-3 bg-primary">Projet pour la société:
+			{{ project.society }}</h2>
+	</div>
+	<div class="row d-flex justify-content-around mb-3">
+	{% dump project.users %}
+		{% for user in project.users %}
+			<div class="card rounded col-3">
+				<div class="">
+					<img src="{{vich_uploader_asset(user, 'avatarFile')}}" alt="avatar" class="img-top">
+				</div>
+				<div class="">
+					<h2 class="">{{ user.firstname }}
+						{{ user.name }}</h2>
+				</div>
+				<div class="">
+					<ul>
+						<li class="">{{ user.email }}</li>
+						<li class="">Poste:
+							{{ user.poste }}</li>
+						<li class="">Technos:
+							{{ user.tech }}</li>
+					</ul>
+				</div>
+				<a href="" class="btn btn-primary text-dark">Contacter</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

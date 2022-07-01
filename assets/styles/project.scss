@@ -1,29 +1,12 @@
 @import 'variable.scss';
 
-
-.title-enterprise {
+.title-project {
     box-shadow: 5px 5px 2px 1px $primary;
     background-color: $logo;
 }
 
-.card {
+.society {
     border: 2px;
     border-color:$logo;
     box-shadow: 12px 12px 2px 1px $logo;
-}
-
-.img-fluid:hover {
-    opacity: 90%;
-}
-
-.title-card {
-    color:$logo;
-}
-
-.society {
-    color: $light;
-}
-
-.link:hover{
-    opacity: 90%;
 }

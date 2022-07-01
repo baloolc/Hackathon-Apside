@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[Vich\Uploadable]
 class Project
 {
     #[ORM\Id]
@@ -35,15 +37,15 @@ class Project
     private string $description;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projects')]
-    private Collection $user;
+    private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: Enterprise::class, inversedBy: 'projects')]
-    private Collection $enterprise;
+    #[ORM\ManyToOne(targetEntity: Enterprise::class, inversedBy: 'projects')]
+    private $enterprise;
+
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
-        $this->enterprise = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,15 +92,15 @@ class Project
     /**
      * @return Collection<int, User>
      */
-    public function getUser(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
@@ -106,31 +108,19 @@ class Project
 
     public function removeUser(User $user): self
     {
-        $this->user->removeElement($user);
+        $this->users->removeElement($user);
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Enterprise>
-     */
-    public function getEnterprise(): Collection
+    public function getEnterprise(): ?Enterprise
     {
         return $this->enterprise;
     }
 
-    public function addEnterprise(Enterprise $enterprise): self
+    public function setEnterprise(?Enterprise $enterprise): self
     {
-        if (!$this->enterprise->contains($enterprise)) {
-            $this->enterprise[] = $enterprise;
-        }
-
-        return $this;
-    }
-
-    public function removeEnterprise(Enterprise $enterprise): self
-    {
-        $this->enterprise->removeElement($enterprise);
+        $this->enterprise = $enterprise;
 
         return $this;
     }
