@@ -20,7 +20,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             for ($j = 0; $j < 6; $j++) {
                 $project = new Project();
                 $project->setName($faker->name());
-                $project->setSociety($faker->sentence());
+                $project->setSociety($faker->word());
                 $project->setDescription($faker->paragraph());
                 $project->setEnterprise($enterprise);
                 $this->addReference('project_' . $nbProject, $project);

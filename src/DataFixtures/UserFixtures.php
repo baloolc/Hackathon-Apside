@@ -24,8 +24,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $filesystem = new Filesystem();
-        $filesystem->remove('public/uploads/client');
-        $filesystem->mkdir('public/uploads/client');
+        $filesystem->remove('public/uploads/user');
+        $filesystem->mkdir('public/uploads/user');
 
         $admin = new User();
         $admin->setEmail('admin@apside.com');
@@ -42,13 +42,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
         $this->addReference($admin->getEmail(), $admin);
-        
+
         $user = new User();
         $user->setEmail('user@apside.com');
         $user->setRoles(['ROLE_USER']);
         $user->setName('Dupont');
         $user->setFirstname('Sebastien');
         $user->setPoste('utilisateur');
+        $avatar = 'avatar' . 'jpg';
+        copy('src/DataFixtures/avatar.jpg', 'public/uploads/user/' . $avatar);
+        $user->setAvatar($avatar);
         $user->setEnterprise($this->getReference('enterprise_0'));
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
@@ -68,7 +71,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setPoste($faker->sentence());
             $user->setTech($faker->sentence());
             $avatar = 'avatar' . $i . 'jpg';
-            copy('src/DataFixtures/avatar.jpg', 'public/uploads/client/' . $avatar);
+            copy('src/DataFixtures/avatar.jpg', 'public/uploads/user/' . $avatar);
             $user->setAvatar($avatar);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
@@ -79,7 +82,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             );
             $user->setPassword($hashedPassword);
             $user->setEnterprise($this->getReference('enterprise_' . $i));
-            $user->addProject($this->getReference('project_' . $i));
+            for($j =0; $j< 35; $j++){
+            $user->addProject($this->getReference('project_' . $j));
+            }
             $manager->persist($user);
         }
 

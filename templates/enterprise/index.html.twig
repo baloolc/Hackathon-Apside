@@ -15,7 +15,7 @@
 		{% for enterprise in enterprises %}
 			<div class="card col-3 m-5 bg-primary p-0 rounded">
 				<h2 class="d-flex justify-content-center my-3 title-card">{{ enterprise.name }}</h2>
-				<a href="{{ path('project_index', {'id': enterprise.id}) }}" class=""><img src="{{vich_uploader_asset(enterprise, 'photoFile')}}" class=" img-fluid" alt="Photo de l\'agence"></a>
+				<a href="{{ path('enterprise_show', {'id': enterprise.id}) }}" class=""><img src="{{vich_uploader_asset(enterprise, 'photoFile')}}" class=" img-fluid" alt="Photo de l\'agence"></a>
             </div>
 		{% endfor %}
 	</div>
