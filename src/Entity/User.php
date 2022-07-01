@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime')]
     private ?DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'user')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'users')]
     private Collection $projects;
 
     public function __construct()
